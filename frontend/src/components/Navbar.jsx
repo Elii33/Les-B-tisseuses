@@ -14,9 +14,9 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { href: '#programme', label: 'Programme' },
-    { href: '#about', label: 'Fondatrice' },
-    { href: '#testimonials', label: 'Résultats' },
+    { href: '#about', label: 'Mon histoire' },
+    { href: '#programme', label: 'La communauté' },
+    { href: '#testimonials', label: 'Témoignages' },
     { href: '#faq', label: 'FAQ' },
   ];
 
@@ -42,7 +42,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <a href="#pricing" className="hidden md:block">
+        <a href="#join" className="hidden md:block">
           <Button className="bg-white text-black hover:bg-white/90 font-bold rounded-full px-5">
             Rejoindre
           </Button>
@@ -59,7 +59,7 @@ export default function Navbar() {
             {links.map((l) => (
               <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-white/80 text-sm">{l.label}</a>
             ))}
-            <a href="#pricing" onClick={() => setOpen(false)}>
+            <a href="#join" onClick={() => setOpen(false)}>
               <Button className="bg-white text-black w-full font-bold rounded-full">Rejoindre</Button>
             </a>
           </div>

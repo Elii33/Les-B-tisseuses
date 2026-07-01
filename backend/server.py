@@ -1,88 +1,148 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, Header
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
+import secrets
+import time
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, EmailStr, Field
+from typing import List, Optional
 import uuid
-from datetime import datetime, timezone
-
+from datetime import datetime
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Create the main app without a prefix
-app = FastAPI()
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'change_me')
+ADMIN_SECRET = os.environ.get('ADMIN_SECRET', 'change_me_secret')
 
-# Create a router with the /api prefix
+app = FastAPI(title="Les Bâtisseuses API")
 api_router = APIRouter(prefix="/api")
 
+# In-memory token store (simple, resets on backend restart — acceptable for MVP)
+active_tokens = {}  # token -> expires_at
+TOKEN_TTL_SECONDS = 60 * 60 * 8  # 8 hours
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
+def _issue_token() -> str:
+    token = secrets.token_urlsafe(32)
+    active_tokens[token] = time.time() + TOKEN_TTL_SECONDS
+    return token
 
-# Add your routes to the router instead of directly to app
+
+def _verify_token(auth: Optional[str]) -> None:
+    if not auth or not auth.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Non autorisé")
+    token = auth.split(" ", 1)[1]
+    exp = active_tokens.get(token)
+    if not exp or exp < time.time():
+        active_tokens.pop(token, None)
+        raise HTTPException(status_code=401, detail="Session expirée")
+
+
+# ---------- Models ----------
+class LeadCreate(BaseModel):
+    first_name: str = Field(min_length=1, max_length=80)
+    email: EmailStr
+    city: Optional[str] = Field(default=None, max_length=80)
+
+
+class Lead(BaseModel):
+    id: str
+    first_name: str
+    email: str
+    city: Optional[str] = None
+    created_at: datetime
+
+
+class AdminLogin(BaseModel):
+    password: str
+
+
+class TokenResp(BaseModel):
+    token: str
+
+
+# ---------- Routes ----------
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Les Bâtisseuses API is running"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+@api_router.post("/leads", response_model=Lead)
+async def create_lead(payload: LeadCreate):
+    email = payload.email.lower().strip()
+    existing = await db.leads.find_one({"email": email})
+    if existing:
+        return Lead(
+            id=existing["id"],
+            first_name=existing["first_name"],
+            email=existing["email"],
+            city=existing.get("city"),
+            created_at=existing["created_at"],
+        )
+    doc = {
+        "id": str(uuid.uuid4()),
+        "first_name": payload.first_name.strip(),
+        "email": email,
+        "city": (payload.city or "").strip() or None,
+        "created_at": datetime.utcnow(),
+    }
+    await db.leads.insert_one(doc)
+    return Lead(**doc)
 
-# Include the router in the main app
+
+@api_router.post("/admin/login", response_model=TokenResp)
+async def admin_login(payload: AdminLogin):
+    if payload.password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="Mot de passe incorrect")
+    return TokenResp(token=_issue_token())
+
+
+@api_router.get("/admin/leads", response_model=List[Lead])
+async def admin_leads(authorization: Optional[str] = Header(default=None)):
+    _verify_token(authorization)
+    docs = await db.leads.find().sort("created_at", -1).to_list(5000)
+    return [
+        Lead(
+            id=d["id"],
+            first_name=d["first_name"],
+            email=d["email"],
+            city=d.get("city"),
+            created_at=d["created_at"],
+        )
+        for d in docs
+    ]
+
+
+@api_router.delete("/admin/leads/{lead_id}")
+async def admin_delete_lead(lead_id: str, authorization: Optional[str] = Header(default=None)):
+    _verify_token(authorization)
+    res = await db.leads.delete_one({"id": lead_id})
+    if res.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Lead introuvable")
+    return {"ok": True}
+
+
 app.include_router(api_router)
 
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
 
 @app.on_event("shutdown")
 async def shutdown_db_client():

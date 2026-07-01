@@ -1,163 +1,117 @@
-// Mock data for Empire Élite landing page
+// Mock data — Les Bâtisseuses community landing
 
 export const brand = {
-  name: "EMPIRE ÉLITE",
-  tagline: "L'Académie des Femmes Ambitieuses",
-  offerPrice: "997€",
-  originalPrice: "1497€",
-  totalValue: "4020€",
-  ctaLink: "#pricing",
+  name: "LES BÂTISSEUSES",
+  tagline: "La communauté des entrepreneures qui refusent la solitude",
+  communityLink: "https://www.skool.com/", // À remplacer par le lien Skool réel
+  ctaLabel: "Rejoindre la communauté",
 };
 
 export const heroStats = [
-  { value: "5 000+", label: "Femmes formées" },
-  { value: "97%", label: "Taux de satisfaction" },
-  { value: "8 ans", label: "D'expertise" },
-  { value: "24/7", label: "Accès à vie" },
+  { value: "100%", label: "Gratuit au lancement" },
+  { value: "Bordeaux", label: "Premiers rendez-vous IRL" },
+  { value: "Skool", label: "Notre QG en ligne" },
+  { value: "0 bullshit", label: "Que du vrai, du concret" },
 ];
 
 export const pillars = [
   {
     icon: "Users",
-    title: "Communauté Privée",
-    desc: "Une tribu bienveillante de femmes qui se tirent vers le haut, disponible 24h/24.",
+    title: "Une vraie tribu",
+    desc: "Fini le solo derrière ton écran. Ici, tu échanges tous les jours avec des entrepreneures qui vivent la même chose que toi.",
   },
   {
-    icon: "GraduationCap",
-    title: "Programme Complet",
-    desc: "18 modules premium en ligne, accessibles à vie pour avancer à ton rythme.",
+    icon: "Coffee",
+    title: "Événements IRL",
+    desc: "On se retrouve autour d'un café à Bordeaux (puis partout en France). Se voir en vrai, c'est ça qui change tout.",
   },
   {
-    icon: "Brain",
-    title: "Guide Mindset",
-    desc: "Reprogramme ton mental d'entrepreneuse et libère ta nouvelle version.",
+    icon: "Sparkles",
+    title: "Intervenants experts",
+    desc: "Régulièrement, des invités viennent partager leurs stratégies, leurs échecs et leurs déclics.",
   },
   {
-    icon: "Headphones",
-    title: "Support 7j/7",
-    desc: "Nos experts répondent à toutes tes questions par mail, tous les jours.",
+    icon: "Heart",
+    title: "Zéro jugement",
+    desc: "On montre nos wins ET nos flops. On apprend ensemble, on avance ensemble, on ne se juge jamais.",
   },
 ];
 
-export const modules = [
-  { num: "01", title: "Mindset d'Entrepreneuse", tag: "Fondation", topics: ["État d'esprit gagnant", "Discipline & habitudes", "Loi de l'attraction", "Nouvelle identité"] },
-  { num: "02", title: "Trouve Ton Business", tag: "Stratégie", topics: ["Aligner passion & profit", "Ta place dans ta niche", "Comprendre ton avatar", "Définir ta mission"] },
-  { num: "03", title: "Personal Branding", tag: "Marque", topics: ["Personal vs professional", "Développer ton branding", "Storytelling puissant", "Vendre sans effort"] },
-  { num: "04", title: "Image de Marque", tag: "Design", topics: ["Nom & domaine", "Logo professionnel", "Charte graphique", "Typographies & couleurs"] },
-  { num: "05", title: "Communauté & Contenu", tag: "Social", topics: ["Attirer tes premiers fans", "TikTok & Instagram", "Constance & organisation", "Devenir la référence"] },
-  { num: "06", title: "Masterclass Reels", tag: "Viral", topics: ["Leviers émotionnels", "Motivations sociales", "Tendances 2026", "Stratégie de scaling"] },
-  { num: "07", title: "Création de Contenu", tag: "Production", topics: ["Outils IA", "Application de montage", "Lives & interactivité", "Analyse de performance"] },
-  { num: "08", title: "Finance & Fiscalité", tag: "Business", topics: ["Micro-entreprise", "Banques en ligne", "TVA & impôts", "Statut juridique"] },
-  { num: "09", title: "Produits Digitaux", tag: "Revenue", topics: ["MVP & validation", "Tunnels de vente", "Site à 0€", "Automatisation"] },
-  { num: "10", title: "Coaching & Formation", tag: "Impact", topics: ["Structurer ta formation", "Plateforme d'hébergement", "Calendrier RDV", "Vente premium"] },
-  { num: "11", title: "Prestation de Service", tag: "Freelance", topics: ["Positionnement", "Plateformes clés", "Automatisation client", "Scaling agence"] },
-  { num: "12", title: "E-Commerce", tag: "Physique", topics: ["3 méthodes e-commerce", "Fournisseurs pro", "Bases Shopify", "Site qui convertit"] },
-  { num: "13", title: "L'Art du Copywriting", tag: "Conversion", topics: ["Connaître l'avatar", "Art de convaincre", "Stratégies impactantes", "Frameworks de vente"] },
-  { num: "14", title: "Vendre par les Réseaux", tag: "Closing", topics: ["Attirer le client", "Setting professionnel", "Closing éthique", "Suivi post-vente"] },
-  { num: "15", title: "Emailing Puissant", tag: "Bonus", topics: ["Emails qui vendent", "Data & analyse", "Séquences automatisées", "100k emails collectés"] },
-  { num: "16", title: "Publicité en Ligne", tag: "Scaling", topics: ["Business Manager", "Pixel Meta & TikTok", "Créatives virales", "Optimisation ROI"] },
-  { num: "17", title: "SAV & Satisfaction", tag: "Fidélisation", topics: ["SAV efficace", "Gérer les réclamations", "Expérience mémorable", "Déléguer le support"] },
-  { num: "18", title: "Développement", tag: "Empire", topics: ["Recruter ton équipe", "Assistants virtuels", "Nouveaux marchés", "Création SASU"] },
-];
-
-export const bonuses = [
-  { num: "01", title: "Module Hack Mental", value: "600€", desc: "Programme complet pour hacker ton cerveau et garantir ton succès dans tous les domaines." },
-  { num: "02", title: "60 Jours Groupe PREMIUM", value: "40€", desc: "Accès offert à notre cercle privé PREMIUM avec masterclasses et lives exclusifs." },
-  { num: "03", title: "2 Ateliers LIVE Q/R", value: "300€", desc: "Deux sessions inédites de questions-réponses en live directement avec la fondatrice." },
-  { num: "04", title: "Replays des Q/R", value: "197€", desc: "Enregistrements vidéo de toutes les sessions Q/R du groupe PREMIUM." },
-  { num: "05", title: "Mises à Jour à Vie", value: "∞", desc: "Accès permanent à toutes les nouvelles vidéos et modules ajoutés au programme." },
-  { num: "06", title: "Masterclass Publicité", value: "600€", desc: "Apprends à lancer des pubs TikTok & Meta rentables avec notre expert dédié." },
-  { num: "07", title: "4 Modules Réseaux Sociaux", value: "600€", desc: "Maîtrise l'art des réseaux sociaux avec 4 modules avancés supplémentaires." },
-  { num: "08", title: "Outils Premium", value: "200€", desc: "Suite complète d'outils et templates pour accélérer ton évolution." },
+export const offers = [
+  { num: "01", title: "Cercle bienveillant", tag: "Communauté", topics: ["Fil d'actu quotidien", "Partage de résultats", "Retour d'expérience", "Zéro compétition, que de l'entraide"] },
+  { num: "02", title: "Cafés bâtisseuses", tag: "IRL", topics: ["Rencontres régulières à Bordeaux", "Networking authentique", "Sessions co-working", "Expansion nationale prévue"] },
+  { num: "03", title: "Masterclass invitées", tag: "Learning", topics: ["Interventions d'experts", "Q/R en direct", "Replays disponibles", "Focus sur du concret actionnable"] },
+  { num: "04", title: "Groupes d'action", tag: "Accountability", topics: ["Objectifs hebdo partagés", "Check-in mensuel", "Duos de responsabilité", "Célébrer les petits progrès"] },
+  { num: "05", title: "Retours honnêtes", tag: "Feedback", topics: ["Feedback sur ton projet", "Critique bienveillante", "Regards multiples", "Sortir de sa bulle"] },
+  { num: "06", title: "Ressources partagées", tag: "Boîte à outils", topics: ["Templates et scripts", "Bons plans testés", "Fournisseurs recommandés", "Aucune info gardée pour soi"] },
 ];
 
 export const forWho = [
-  "Tu es prête à te former et investir sur toi sereinement avec un guide étape par étape.",
-  "Tu souhaites vivre la vie que tu mérites et ne plus dépendre d'un simple salaire.",
-  "Tu veux arrêter de regarder les autres changer leur vie et enfin passer à l'action.",
-  "Salariée, étudiante ou femme au foyer : tu veux construire ton business à ton rythme.",
+  "Tu entreprends (ou tu veux te lancer) et tu te sens seule derrière ton écran.",
+  "Tu en as marre des communautés qui s'essoufflent après 2 semaines.",
+  "Tu veux être entourée de gens qui font vraiment, pas qui rêvent.",
+  "Tu es prête à montrer tes vrais résultats — les hauts ET les bas.",
 ];
 
 export const testimonials = [
   {
     name: "Sofia M.",
-    role: "E-commerce · 32 000€/mois",
+    role: "E-commerce · Bordeaux",
     img: "https://images.unsplash.com/photo-1573497019236-17f8177b81e8?w=200&auto=format&fit=crop",
-    text: "En 4 mois j'ai lancé ma boutique de bijoux artisanaux. Aujourd'hui je vis à 100% de mon business et j'ai quitté mon job de comptable. Merci Empire Élite !",
+    text: "Ça faisait 2 ans que je bossais seule. En 3 semaines dans la communauté, j'ai débloqué 2 problèmes qui me freinaient depuis des mois. Merci Elisa 🙏",
     rating: 5,
   },
   {
     name: "Léa V.",
-    role: "Coaching · 12k€/mois",
+    role: "Coaching bien-être",
     img: "https://images.pexels.com/photos/8145359/pexels-photo-8145359.jpeg?w=200&auto=format&fit=crop",
-    text: "Je n'avais AUCUNE idée en démarrant. Le module 'Trouve ton business' m'a débloqué. Aujourd'hui j'accompagne des femmes en burn-out et j'adore ma vie.",
+    text: "Le café bâtisseuses à Bordeaux a changé ma vision. Rencontrer des filles qui vivent la même chose en vrai, ça n'a pas de prix.",
     rating: 5,
   },
   {
     name: "Jasmine K.",
-    role: "Produits digitaux · 8k€/mois",
+    role: "Freelance rédactrice",
     img: "https://images.pexels.com/photos/7876506/pexels-photo-7876506.jpeg?w=200&auto=format&fit=crop",
-    text: "Étudiante en droit et je génère plus que le salaire de mes parents. Le mindset et la stratégie Instagram ont TOUT changé pour moi.",
+    text: "Enfin une communauté qui ne devient pas un cimetière au bout de 2 mois. L'énergie ici est différente.",
     rating: 5,
   },
   {
     name: "Manon T.",
-    role: "Freelance · 6k€/mois",
+    role: "Créatrice bijoux",
     img: "https://images.pexels.com/photos/30609905/pexels-photo-30609905.jpeg?w=200&auto=format&fit=crop",
-    text: "Maman de deux enfants, je bosse depuis chez moi. Le programme copywriting m'a permis de vendre mes services 3x plus cher qu'avant.",
+    text: "J'ai osé partager mon flop du mois. Résultat : 15 filles m'ont proposé des solutions. Je ne me sens plus seule du tout.",
     rating: 5,
   },
   {
     name: "Chloé A.",
-    role: "E-com · 45k€/mois",
+    role: "SaaS founder",
     img: "https://images.pexels.com/photos/36733305/pexels-photo-36733305.jpeg?w=200&auto=format&fit=crop",
-    text: "J'ai testé 3 formations avant. Empire Élite est la seule qui va vraiment de A à Z. Le module pub Meta m'a fait scaler à 45k€/mois en 5 mois.",
+    text: "Les intervenants invités m'ont apporté des insights que je n'avais dans AUCUNE des formations à 2k€ que j'ai achetées avant.",
     rating: 5,
   },
   {
     name: "Inès B.",
-    role: "Formation · 20k€/mois",
+    role: "Consultante digitale",
     img: "https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?w=200&auto=format&fit=crop",
-    text: "La communauté est en OR. Poser une question et avoir 15 réponses de filles qui ont réussi, c'est un cheat code incroyable.",
+    text: "Elisa a créé un espace où on peut être 100% soi-même. C'est rare et précieux. Je recommande à toutes les entrepreneures.",
     rating: 5,
   },
 ];
 
 export const faqs = [
-  {
-    q: "À quel moment de mon projet dois-je rejoindre Empire Élite ?",
-    a: "Le plus tôt possible ! Démarrer un projet sans formation solide entraîne souvent des erreurs coûteuses en temps et en argent. Empire Élite te donne un plan d'action étape par étape pour éviter tous les pièges et lancer ton business dans les meilleures conditions.",
-  },
-  {
-    q: "J'ai déjà un business mais les résultats ne suivent pas. Est-ce pour moi ?",
-    a: "Absolument. Si tes résultats stagnent, c'est qu'il y a des freins spécifiques dans ta stratégie. Empire Élite te permet d'identifier ces blocages et te fournit les outils pratiques pour les surmonter et atteindre le niveau supérieur.",
-  },
-  {
-    q: "Y a-t-il un suivi une fois mon business lancé ?",
-    a: "Oui ! Le groupe PREMIUM te permet d'échanger avec la communauté, poser tes questions et bénéficier de 2 sessions live de Q/R par mois avec la fondatrice ainsi que des masterclasses exclusives.",
-  },
-  {
-    q: "Suis-je obligée de me montrer sur les réseaux sociaux ?",
-    a: "Pas du tout. Nous proposons plusieurs méthodes de vente qui ne nécessitent pas d'apparaître face caméra : marque professionnelle, e-commerce, produits digitaux, faceless content. Chaque business est unique.",
-  },
-  {
-    q: "Je n'ai aucune idée de business, est-ce que c'est un problème ?",
-    a: "Au contraire, c'est un avantage ! Le module 'Trouve ton business' est spécialement conçu pour t'aider à débloquer 10 idées de micro-passions rentables en moins de 10 minutes.",
-  },
-  {
-    q: "Le CPF est-il accepté ?",
-    a: "Non, Empire Élite n'est pas éligible au CPF. Nous avons fait ce choix volontaire pour attirer des femmes réellement engagées, prêtes à investir sur elles-mêmes pour créer un vrai changement dans leur vie.",
-  },
-  {
-    q: "Est-ce accessible aux hommes ?",
-    a: "Bien sûr ! Notre programme est ouvert à toute personne motivée à lancer un business en ligne rentable, homme ou femme, sans distinction d'âge ou d'expérience.",
-  },
+  { q: "C'est vraiment gratuit ?", a: "Oui, totalement gratuit au lancement. C'est ma façon de bâtir un noyau dur de membres engagées avant de proposer des offres premium. Profites-en tant qu'elle est ouverte à toutes." },
+  { q: "Où se passe la communauté ?", a: "Notre QG est sur Skool — une plateforme moderne pensée pour les communautés qui durent (gamification, événements, ressources, tout au même endroit). Pas de bordel Discord ici." },
+  { q: "Je ne suis pas encore entrepreneure, est-ce pour moi ?", a: "Absolument. Que tu sois salariée qui rêve de se lancer, en pleine reconversion, ou déjà en train de construire ton business : ta place est ici. On avance toutes à des étapes différentes." },
+  { q: "Comment fonctionnent les cafés bâtisseuses ?", a: "Des rencontres régulières en présentiel, pour l'instant à Bordeaux. Café, networking authentique, sessions co-working. L'objectif : se voir en vrai. Expansion prévue dans d'autres villes." },
+  { q: "Combien de temps ça me demande ?", a: "Autant que tu veux y consacrer. 15 min par jour pour interagir suffisent largement. Tu peux aussi participer aux masterclasses en replay quand ça te va." },
+  { q: "Et si je n'aime pas ?", a: "Tu pars, sans problème et sans engagement. C'est gratuit et ça le restera pour toi tant que la porte est ouverte." },
+  { q: "Est-ce que les hommes peuvent rejoindre ?", a: "Pour l'instant la communauté est pensée en priorité pour les femmes, mais la porte n'est pas fermée. Écris-moi si tu es un homme motivé qui partage nos valeurs." },
 ];
 
 export const founder = {
-  name: "Elena Rose",
+  name: "Elisa",
   img: "https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=600&auto=format&fit=crop",
-  bio: "Fondatrice d'Empire Élite, entrepreneuse depuis 8 ans, maman de deux enfants et créatrice de plusieurs business à 7 chiffres.",
+  intro: "J'ai 30 ans. J'ai grandi vite. Trop vite.",
 };
 
 export const successImages = [
@@ -166,4 +120,4 @@ export const successImages = [
   "https://images.pexels.com/photos/3184406/pexels-photo-3184406.jpeg?w=800&auto=format&fit=crop",
 ];
 
-export const partners = ["Business", "Shopify", "Meta", "TikTok", "Stripe", "Legal Place", "Klaviyo", "Notion"];
+export const partners = ["Skool", "Bordeaux", "IRL Events", "Community", "Sisterhood", "Growth", "Real Talk", "No BS"];

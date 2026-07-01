@@ -101,3 +101,156 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Les Bâtisseuses landing page with lead capture and admin panel"
+
+backend:
+  - task: "Health check endpoint"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/ returns correct message 'Les Bâtisseuses API is running' with 200 status"
+
+  - task: "Lead creation endpoint"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "POST /api/leads successfully creates leads with id, first_name, email, city, and created_at fields. Returns 200 status"
+
+  - task: "Lead creation idempotency"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "POST /api/leads with duplicate email correctly returns existing lead with same ID instead of creating duplicate. Idempotency working correctly"
+
+  - task: "Email validation"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "POST /api/leads with invalid email correctly returns 422 validation error with detailed error message"
+
+  - task: "Admin authentication - wrong password"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "POST /api/admin/login with wrong password correctly returns 401 with 'Mot de passe incorrect' message"
+
+  - task: "Admin authentication - correct password"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "POST /api/admin/login with correct password (Elisa33600) returns 200 with valid token"
+
+  - task: "Admin leads endpoint - unauthorized access"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/admin/leads without Authorization header correctly returns 401 with 'Non autorisé' message"
+
+  - task: "Admin leads endpoint - authorized access"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/admin/leads with valid Bearer token returns 200 with list of leads. Created lead found in response"
+
+  - task: "Admin delete lead endpoint"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "DELETE /api/admin/leads/{id} with valid token successfully deletes lead and returns {ok: true} with 200 status"
+
+  - task: "Admin delete non-existing lead"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "DELETE /api/admin/leads/{id} for non-existing ID correctly returns 404 with 'Lead introuvable' message"
+
+frontend:
+  - task: "Frontend testing"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Frontend testing not performed as per testing agent scope - backend only"
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "All backend endpoints tested and verified"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "testing"
+    message: "Completed comprehensive backend API testing. All 10 test cases passed successfully. Backend is fully functional with proper authentication, validation, idempotency, and error handling. No critical or major issues found. Backend logs show clean execution with no errors."

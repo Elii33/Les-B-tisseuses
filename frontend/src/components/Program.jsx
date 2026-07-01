@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { modules } from '../mock';
+import { offers } from '../mock';
 
 export default function Program() {
   return (
@@ -9,15 +9,15 @@ export default function Program() {
 
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs uppercase tracking-widest mb-4">18 modules · 200+ vidéos</span>
+          <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs uppercase tracking-widest mb-4">Ce qui t'attend</span>
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight max-w-4xl mx-auto">
-            Le programme complet pour <span className="bg-gradient-to-r from-fuchsia-400 via-pink-400 to-orange-300 bg-clip-text text-transparent">construire ton empire</span>
+            Une communauté qui <span className="bg-gradient-to-r from-fuchsia-400 via-pink-400 to-orange-300 bg-clip-text text-transparent">ne s'essouffle pas</span>
           </h2>
-          <p className="text-white/60 mt-4 max-w-2xl mx-auto">Un parcours étape par étape, du mindset au scaling, pour lancer et faire croître ton business en ligne rentable.</p>
+          <p className="text-white/60 mt-4 max-w-2xl mx-auto">Fini les groupes Discord fantômes et les communautés qui meurent en 2 semaines. Ici, on bâtit sur le long terme.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {modules.map((m, i) => (
+          {offers.map((m, i) => (
             <motion.div
               key={m.num}
               initial={{ opacity: 0, y: 30 }}

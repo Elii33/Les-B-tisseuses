@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, GraduationCap, Brain, Headphones } from 'lucide-react';
+import { Users, Coffee, Sparkles, Heart } from 'lucide-react';
 import { pillars } from '../mock';
 
-const iconMap = { Users, GraduationCap, Brain, Headphones };
+const iconMap = { Users, Coffee, Sparkles, Heart };
 
 export default function Pillars() {
   return (
@@ -11,9 +11,9 @@ export default function Pillars() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#a855f7_0%,transparent_50%)] opacity-10" />
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs uppercase tracking-widest mb-4">Tout ce dont tu as besoin</span>
+          <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs uppercase tracking-widest mb-4">Tout ce que tu trouves ici</span>
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight max-w-3xl mx-auto">
-            L'écosystème complet pour être <span className="bg-gradient-to-r from-fuchsia-400 to-orange-300 bg-clip-text text-transparent">accompagnée de A à Z</span>
+            L'écosystème qui t'accompagne <span className="bg-gradient-to-r from-fuchsia-400 to-orange-300 bg-clip-text text-transparent">de A à Z</span>
           </h2>
         </div>
 
