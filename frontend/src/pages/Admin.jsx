@@ -96,7 +96,7 @@ export default function Admin() {
         <form onSubmit={login} className="relative w-full max-w-md bg-gradient-to-br from-[#1a0330] to-[#0a0014] border border-white/10 rounded-3xl p-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 rounded-xl bg-[#fdf5ec] flex items-center justify-center overflow-hidden ring-1 ring-white/10">
-              <img src={brand.logoUrl} alt="Les Bâtisseuses" className="w-full h-full object-cover scale-[1.65]" style={{ objectPosition: '50% 30%' }} />
+              <img src={brand.logoUrl} alt="Les Bâtisseuses" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="text-white font-black text-lg leading-none">LES BÂTISSEUSES</div>
@@ -133,7 +133,7 @@ export default function Admin() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-[#fdf5ec] flex items-center justify-center overflow-hidden ring-1 ring-white/10">
-              <img src={brand.logoUrl} alt="Les Bâtisseuses" className="w-full h-full object-cover scale-[1.65]" style={{ objectPosition: '50% 30%' }} />
+              <img src={brand.logoUrl} alt="Les Bâtisseuses" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="font-black text-sm leading-none">LES BÂTISSEUSES</div>

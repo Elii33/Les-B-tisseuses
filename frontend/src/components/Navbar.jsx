@@ -25,9 +25,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <a href="#top" className="flex items-center gap-2 group">
           <div className="relative">
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-orange-400 blur-md opacity-70 group-hover:opacity-100 transition" />
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-orange-400 blur-md opacity-70 group-hover:opacity-100 transition" />
             <div className="relative w-11 h-11 rounded-xl bg-[#fdf5ec] flex items-center justify-center overflow-hidden ring-1 ring-white/10">
-              <img src={brand.logoUrl} alt="Les Bâtisseuses" className="w-full h-full object-cover scale-[1.65]" style={{ objectPosition: '50% 30%' }} />
+              <img src={brand.logoUrl} alt="Les Bâtisseuses" className="w-full h-full object-cover" />
             </div>
           </div>
           <span className="text-white font-black tracking-tight text-lg">{brand.name}</span>

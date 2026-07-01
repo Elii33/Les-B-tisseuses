@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-10">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-xl bg-[#fdf5ec] flex items-center justify-center overflow-hidden ring-1 ring-white/10">
-              <img src={brand.logoUrl} alt="Les Bâtisseuses" className="w-full h-full object-cover scale-[1.65]" style={{ objectPosition: '50% 30%' }} />
+              <img src={brand.logoUrl} alt="Les Bâtisseuses" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="text-white font-black text-lg leading-none">{brand.name}</div>
