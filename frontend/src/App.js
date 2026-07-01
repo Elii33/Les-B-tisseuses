@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import Pillars from './components/Pillars';
 import Founder from './components/Founder';
 import Program from './components/Program';
+import Vision from './components/Vision';
 import Pricing from './components/Pricing';
 import Testimonials from './components/Testimonials';
 import Faq from './components/Faq';
@@ -21,6 +22,7 @@ function Landing() {
       <Pillars />
       <Founder />
       <Program />
+      <Vision />
       <Pricing />
       <Testimonials />
       <Faq />

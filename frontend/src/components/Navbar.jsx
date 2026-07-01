@@ -16,7 +16,7 @@ export default function Navbar() {
   const links = [
     { href: '#about', label: 'Mon histoire' },
     { href: '#programme', label: 'La communauté' },
-    { href: '#testimonials', label: 'Témoignages' },
+    { href: '#vision', label: 'Vision' },
     { href: '#faq', label: 'FAQ' },
   ];
 

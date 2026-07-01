@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Coffee, Sparkles, Heart } from 'lucide-react';
+import { Users, Coffee, Sparkles, Heart, Video } from 'lucide-react';
 import { pillars } from '../mock';
 
-const iconMap = { Users, Coffee, Sparkles, Heart };
+const iconMap = { Users, Coffee, Sparkles, Heart, Video };
 
 export default function Pillars() {
   return (
