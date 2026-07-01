@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Scene3D from './Scene3D';
 import { Button } from './ui/button';
-import { ArrowRight, Users } from 'lucide-react';
+import { ArrowRight, Users, Star } from 'lucide-react';
 import { brand, heroStats } from '../mock';
 
 export default function Hero() {
@@ -44,9 +44,15 @@ export default function Hero() {
             Bâtis avec nous.
           </h1>
 
-          <p className="text-lg md:text-xl text-white/70 max-w-2xl mb-8 leading-relaxed">
+          <p className="text-lg md:text-xl text-white/70 max-w-2xl mb-6 leading-relaxed">
             {brand.tagline}. On échange au quotidien en ligne, on se retrouve en <span className="text-white font-semibold">cafés-visio</span>, en <span className="text-white font-semibold">rencontres IRL à Bordeaux</span>, et je me déplace pour organiser des <span className="text-white font-semibold">événements dans d'autres villes de France</span>.
           </p>
+
+          <div className="flex items-center justify-center gap-1 mb-8">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="w-5 h-5 fill-orange-300 text-orange-300 drop-shadow-[0_0_8px_rgba(251,146,60,0.5)]" />
+            ))}
+          </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-16">
             <a href="#join">

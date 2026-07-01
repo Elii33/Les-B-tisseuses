@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Youtube } from 'lucide-react';
+import { Instagram } from 'lucide-react';
 import { brand } from '../mock';
 
 export default function Footer() {
@@ -18,11 +18,14 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-fuchsia-400/40 transition">
-              <Instagram className="w-4 h-4" />
-            </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-fuchsia-400/40 transition">
-              <Youtube className="w-4 h-4" />
+            <a
+              href={brand.instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram Les Bâtisseuses"
+              className="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-fuchsia-400/50 hover:bg-white/10 transition"
+            >
+              <Instagram className="w-5 h-5" />
             </a>
           </div>
         </div>

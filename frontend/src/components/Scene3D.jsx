@@ -2,6 +2,28 @@ import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
+function createStarGeometry(outerRadius = 0.9, innerRadius = 0.4, spikes = 5, depth = 0.25) {
+  const shape = new THREE.Shape();
+  for (let i = 0; i < spikes * 2; i++) {
+    const r = i % 2 === 0 ? outerRadius : innerRadius;
+    const angle = (i * Math.PI) / spikes - Math.PI / 2;
+    const x = Math.cos(angle) * r;
+    const y = Math.sin(angle) * r;
+    if (i === 0) shape.moveTo(x, y);
+    else shape.lineTo(x, y);
+  }
+  shape.closePath();
+  const geo = new THREE.ExtrudeGeometry(shape, {
+    depth,
+    bevelEnabled: true,
+    bevelSize: 0.05,
+    bevelThickness: 0.05,
+    bevelSegments: 4,
+  });
+  geo.center();
+  return geo;
+}
+
 function FloatingShape({ position, color, shape = 'sphere', speed = 1, scale = 1 }) {
   const ref = useRef();
   useFrame((state) => {
@@ -13,7 +35,7 @@ function FloatingShape({ position, color, shape = 'sphere', speed = 1, scale = 1
   });
 
   const geo = useMemo(() => {
-    if (shape === 'box') return new THREE.BoxGeometry(1, 1, 1);
+    if (shape === 'star') return createStarGeometry();
     if (shape === 'torus') return new THREE.TorusGeometry(0.6, 0.22, 24, 100);
     if (shape === 'octa') return new THREE.OctahedronGeometry(0.9, 0);
     if (shape === 'ico') return new THREE.IcosahedronGeometry(0.9, 0);
@@ -60,9 +82,9 @@ export default function Scene3D({ variant = 'hero' }) {
 
       <FloatingShape position={[-3.2, 0.8, 0]} color="#a855f7" shape="ico" speed={0.6} scale={1.1} />
       <FloatingShape position={[3.4, -0.5, -1]} color="#ec4899" shape="torus" speed={0.8} scale={1.2} />
-      <FloatingShape position={[0, 1.8, -2]} color="#fb923c" shape="octa" speed={0.5} scale={0.9} />
+      <FloatingShape position={[0, 1.8, -2]} color="#fb923c" shape="star" speed={0.5} scale={1.1} />
       <FloatingShape position={[-1.8, -1.4, 1]} color="#f472b6" shape="sphere" speed={0.9} scale={0.7} />
-      <FloatingShape position={[2.2, 1.5, 1.5]} color="#c084fc" shape="box" speed={0.7} scale={0.6} />
+      <FloatingShape position={[2.2, 1.5, 1.5]} color="#c084fc" shape="star" speed={0.7} scale={0.8} />
       {variant === 'hero' && (
         <>
           <FloatingShape position={[-4, -1.8, -1]} color="#fbbf24" shape="sphere" speed={0.4} scale={0.5} />

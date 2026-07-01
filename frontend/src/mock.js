@@ -5,6 +5,7 @@ export const brand = {
   tagline: "La communauté des entrepreneures qui refusent la solitude",
   motto: "Entreprendre. S'épanouir. S'entraider.",
   signature: "Construisons nos rêves, ensemble.",
+  instagramUrl: "https://instagram.com/", // ⚠️ À remplacer par le vrai lien Instagram
   logoUrl: "https://customer-assets.emergentagent.com/job_landing-offer-hub/artifacts/ebkv7l3g_3F6FBCD5-C9C4-444A-9F1E-BDF3BD3F2A61.jpeg",
   communityLink: "https://discord.gg/FrYHGPkzg",
   ctaLabel: "Rejoindre la communauté",
@@ -96,9 +97,9 @@ export const founder = {
 };
 
 export const successImages = [
-  "https://images.unsplash.com/photo-1641998148499-cb6b55a3c0d3?w=800&auto=format&fit=crop",
-  "https://images.pexels.com/photos/7793999/pexels-photo-7793999.jpeg?w=800&auto=format&fit=crop",
-  "https://images.pexels.com/photos/3184406/pexels-photo-3184406.jpeg?w=800&auto=format&fit=crop",
+  "https://images.pexels.com/photos/5588365/pexels-photo-5588365.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "https://images.pexels.com/photos/4350059/pexels-photo-4350059.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "https://images.unsplash.com/photo-1653762378429-8030175fda56?crop=entropy&cs=srgb&fm=jpg&w=800&q=80",
 ];
 
 export const partners = ["Discord", "Bordeaux", "IRL Events", "Community", "Sisterhood", "Growth", "Real Talk", "No BS"];
