@@ -47,7 +47,7 @@ export default function FinalCta() {
             </a>
           </div>
 
-          <p className="text-white/40 text-xs mt-6">Gratuit au lancement · Aucun engagement · Sans spam</p>
+          <p className="text-white/40 text-xs mt-6">Aucun engagement · Sans spam</p>
         </motion.div>
       </div>
     </section>

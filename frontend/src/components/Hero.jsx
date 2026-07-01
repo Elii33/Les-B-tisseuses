@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Scene3D from './Scene3D';
 import { Button } from './ui/button';
-import { ArrowRight, Users, Star } from 'lucide-react';
+import { ArrowRight, Users } from 'lucide-react';
 import { brand, heroStats } from '../mock';
 
 export default function Hero() {
@@ -44,15 +44,9 @@ export default function Hero() {
             Bâtis avec nous.
           </h1>
 
-          <p className="text-lg md:text-xl text-white/70 max-w-2xl mb-4 leading-relaxed">
-            {brand.tagline}. On échange, on partage nos wins et nos flops, on se retrouve autour d'un café à Bordeaux, on grandit ensemble.
-            <span className="text-white font-semibold"> Sans bullshit, sans jugement.</span>
+          <p className="text-lg md:text-xl text-white/70 max-w-2xl mb-8 leading-relaxed">
+            {brand.tagline}. On échange au quotidien en ligne, on se retrouve en <span className="text-white font-semibold">cafés-visio</span>, en <span className="text-white font-semibold">rencontres IRL à Bordeaux</span>, et je me déplace pour organiser des <span className="text-white font-semibold">événements dans d'autres villes de France</span>.
           </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-8 text-white/60 text-sm">
-            <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-orange-300 text-orange-300" />)}</div>
-            <span>Rejoins les premières bâtisseuses</span>
-          </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-16">
             <a href="#join">

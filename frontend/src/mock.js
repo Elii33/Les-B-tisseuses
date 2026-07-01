@@ -11,10 +11,10 @@ export const brand = {
 };
 
 export const heroStats = [
-  { value: "100%", label: "Gratuit au lancement" },
-  { value: "Bordeaux", label: "Premiers rendez-vous IRL" },
+  { value: "Zoom", label: "Cafés-visio pour toutes" },
+  { value: "Bordeaux", label: "Cafés IRL en Gironde" },
+  { value: "France", label: "Rencontres dans d'autres villes" },
   { value: "Discord", label: "Notre QG en ligne" },
-  { value: "0 bullshit", label: "Que du vrai, du concret" },
 ];
 
 export const pillars = [
@@ -81,13 +81,11 @@ export const testimonials = [
 ];
 
 export const faqs = [
-  { q: "C'est vraiment gratuit ?", a: "Oui, totalement gratuit au lancement. C'est ma façon de bâtir un noyau dur de membres engagées avant de proposer des offres premium. Profites-en tant qu'elle est ouverte à toutes." },
-  { q: "Où se passe la communauté ?", a: "Notre QG est actuellement sur Discord — gratuit, accessible depuis ton téléphone ou ton ordinateur. On y échange au quotidien, on partage les infos des cafés visio et IRL, et on organise les masterclasses avec nos intervenants." },
-  { q: "Je ne suis pas encore entrepreneure, est-ce pour moi ?", a: "Absolument. Que tu sois salariée qui rêve de se lancer, en pleine reconversion, ou déjà en train de construire ton business : ta place est ici. On avance toutes à des étapes différentes." },
+  { q: "Où se passe la communauté ?", a: "Notre QG est actuellement sur Discord — accessible depuis ton téléphone ou ton ordinateur. On y échange au quotidien, on partage les infos des cafés visio et IRL, et on organise les masterclasses avec nos intervenants." },
   { q: "Je ne suis pas de Bordeaux, ça vaut le coup pour moi ?", a: "Absolument ! Deux choses pour toi : 1) des cafés-visio en Zoom réguliers ouverts à toutes, où que tu vives, tu participes 100% à la communauté (échanges, masterclasses, entraide). 2) Je me déplacerai régulièrement pour organiser des événements dans d'autres villes de France — Paris, Lyon, Marseille, etc. Mon ambition : que chaque bâtisseuse puisse me rencontrer près de chez elle." },
-  { q: "Comment fonctionnent les cafés bâtisseuses ?", a: "Deux formats : les cafés-visio en Zoom, réguliers et ouverts à toutes (peu importe où tu habites), et les cafés en présentiel — pour l'instant en région bordelaise, mais je me déplace aussi dans d'autres villes de France pour organiser des rencontres partout où il y a des bâtisseuses." },
+  { q: "Comment fonctionnent les cafés bâtisseuses ?", a: "Trois formats : les cafés-visio en Zoom (ouverts à toutes, peu importe où tu habites), les cafés en présentiel en région bordelaise, et les rencontres organisées dans d'autres villes de France quand je me déplace." },
+  { q: "Je ne suis pas encore entrepreneure, est-ce pour moi ?", a: "Absolument. Que tu sois salariée qui rêve de se lancer, en pleine reconversion, ou déjà en train de construire ton business : ta place est ici. On avance toutes à des étapes différentes." },
   { q: "Combien de temps ça me demande ?", a: "Autant que tu veux y consacrer. 15 min par jour pour interagir suffisent largement. Tu peux aussi participer aux masterclasses en replay quand ça te va." },
-  { q: "Et si je n'aime pas ?", a: "Tu pars, sans problème et sans engagement. C'est gratuit et ça le restera pour toi tant que la porte est ouverte." },
   { q: "Est-ce que les hommes peuvent rejoindre ?", a: "Pour l'instant la communauté est pensée en priorité pour les femmes, mais la porte n'est pas fermée. Écris-moi si tu es un homme motivé qui partage nos valeurs." },
 ];
 

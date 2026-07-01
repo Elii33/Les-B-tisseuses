@@ -79,16 +79,16 @@ export default function Pricing() {
           <div className="absolute -inset-4 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-orange-400 rounded-[3rem] blur-2xl opacity-40 animate-pulse" />
           <div className="relative bg-gradient-to-br from-[#1a0330] to-[#0a0014] border border-white/10 rounded-[2.5rem] p-8 md:p-12 overflow-hidden">
             <div className="absolute top-0 right-0 bg-gradient-to-l from-orange-400 to-pink-500 text-white text-xs font-black px-6 py-2 rounded-bl-3xl uppercase tracking-widest">
-              ✨ Gratuit au lancement
+              ✨ Rejoins-nous
             </div>
 
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-white/5 border border-white/10">
                 <Sparkles className="w-4 h-4 text-orange-300" />
-                <span className="text-xs uppercase tracking-widest text-white/70 font-bold">Places limitées</span>
+                <span className="text-xs uppercase tracking-widest text-white/70 font-bold">Communauté ouverte</span>
               </div>
               <h3 className="text-3xl md:text-5xl font-black text-white mb-3">Rejoins Les Bâtisseuses</h3>
-              <p className="text-white/60">Laisse ton email, je t'envoie le lien d'accès à la communauté Discord + les infos des prochains cafés visio et à Bordeaux.</p>
+              <p className="text-white/60">Laisse ton email, je t'envoie le lien d'accès à la communauté Discord + les infos des prochains cafés-visio, cafés IRL Bordeaux et événements dans les autres villes.</p>
             </div>
 
             {status === 'success' ? (
