@@ -88,7 +88,7 @@ export default function Pricing() {
                 <span className="text-xs uppercase tracking-widest text-white/70 font-bold">Places limitées</span>
               </div>
               <h3 className="text-3xl md:text-5xl font-black text-white mb-3">Rejoins Les Bâtisseuses</h3>
-              <p className="text-white/60">Laisse ton email, je t'envoie le lien d'accès à la communauté Skool + les infos des prochains cafés à Bordeaux.</p>
+              <p className="text-white/60">Laisse ton email, je t'envoie le lien d'accès à la communauté Discord + les infos des prochains cafés visio et à Bordeaux.</p>
             </div>
 
             {status === 'success' ? (

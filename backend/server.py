@@ -6,6 +6,7 @@ import os
 import logging
 import secrets
 import time
+import httpx
 from pathlib import Path
 from pydantic import BaseModel, EmailStr, Field
 from typing import List, Optional
@@ -21,6 +22,7 @@ db = client[os.environ['DB_NAME']]
 
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'change_me')
 ADMIN_SECRET = os.environ.get('ADMIN_SECRET', 'change_me_secret')
+MAILERLITE_API_KEY = os.environ.get('MAILERLITE_API_KEY', '')
 
 app = FastAPI(title="Les Bâtisseuses API")
 api_router = APIRouter(prefix="/api")
@@ -78,6 +80,9 @@ async def root():
 @api_router.post("/leads", response_model=Lead)
 async def create_lead(payload: LeadCreate):
     email = payload.email.lower().strip()
+    first_name = payload.first_name.strip()
+    city = (payload.city or "").strip() or None
+
     existing = await db.leads.find_one({"email": email})
     if existing:
         return Lead(
@@ -89,13 +94,42 @@ async def create_lead(payload: LeadCreate):
         )
     doc = {
         "id": str(uuid.uuid4()),
-        "first_name": payload.first_name.strip(),
+        "first_name": first_name,
         "email": email,
-        "city": (payload.city or "").strip() or None,
+        "city": city,
         "created_at": datetime.utcnow(),
+        "mailerlite_synced": False,
     }
     await db.leads.insert_one(doc)
-    return Lead(**doc)
+
+    # Sync to MailerLite (non-blocking on error)
+    if MAILERLITE_API_KEY:
+        try:
+            async with httpx.AsyncClient(timeout=8.0) as http:
+                fields = {"name": first_name}
+                if city:
+                    fields["city"] = city
+                resp = await http.post(
+                    "https://connect.mailerlite.com/api/subscribers",
+                    headers={
+                        "Authorization": f"Bearer {MAILERLITE_API_KEY}",
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    },
+                    json={
+                        "email": email,
+                        "fields": fields,
+                        "status": "active",
+                    },
+                )
+                if resp.status_code in (200, 201):
+                    await db.leads.update_one({"id": doc["id"]}, {"$set": {"mailerlite_synced": True}})
+                else:
+                    logger.warning(f"MailerLite sync failed ({resp.status_code}): {resp.text[:200]}")
+        except Exception as e:
+            logger.warning(f"MailerLite sync exception: {e}")
+
+    return Lead(**{k: v for k, v in doc.items() if k in ("id", "first_name", "email", "city", "created_at")})
 
 
 @api_router.post("/admin/login", response_model=TokenResp)

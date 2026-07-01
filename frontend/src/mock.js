@@ -3,14 +3,14 @@
 export const brand = {
   name: "LES BÂTISSEUSES",
   tagline: "La communauté des entrepreneures qui refusent la solitude",
-  communityLink: "https://www.skool.com/", // À remplacer par le lien Skool réel
+  communityLink: "https://discord.gg/", // ⚠️ À remplacer par le vrai lien d'invitation Discord (format https://discord.gg/xxxxx)
   ctaLabel: "Rejoindre la communauté",
 };
 
 export const heroStats = [
   { value: "100%", label: "Gratuit au lancement" },
   { value: "Bordeaux", label: "Premiers rendez-vous IRL" },
-  { value: "Skool", label: "Notre QG en ligne" },
+  { value: "Discord", label: "Notre QG en ligne" },
   { value: "0 bullshit", label: "Que du vrai, du concret" },
 ];
 
@@ -79,7 +79,7 @@ export const testimonials = [
 
 export const faqs = [
   { q: "C'est vraiment gratuit ?", a: "Oui, totalement gratuit au lancement. C'est ma façon de bâtir un noyau dur de membres engagées avant de proposer des offres premium. Profites-en tant qu'elle est ouverte à toutes." },
-  { q: "Où se passe la communauté ?", a: "Notre QG est sur Skool — une plateforme moderne pensée pour les communautés qui durent (gamification, événements, ressources, tout au même endroit). Pas de bordel Discord ici." },
+  { q: "Où se passe la communauté ?", a: "Notre QG est actuellement sur Discord — gratuit, accessible depuis ton téléphone ou ton ordinateur. On y échange au quotidien, on partage les infos des cafés visio et IRL, et on organise les masterclasses avec nos intervenants." },
   { q: "Je ne suis pas encore entrepreneure, est-ce pour moi ?", a: "Absolument. Que tu sois salariée qui rêve de se lancer, en pleine reconversion, ou déjà en train de construire ton business : ta place est ici. On avance toutes à des étapes différentes." },
   { q: "Je ne suis pas de Bordeaux, ça vaut le coup pour moi ?", a: "Bien sûr ! On organise régulièrement des cafés-visio en Zoom, ouverts à toutes les bâtisseuses peu importe où tu vis. Tu profites de 100% de la communauté (échanges, masterclasses, entraide) où que tu sois. Et à terme, on viendra dans ta ville pour des cafés IRL." },
   { q: "Comment fonctionnent les cafés bâtisseuses ?", a: "Deux formats : les cafés-visio ouverts à tout le monde (Zoom, gratuits, réguliers) et les cafés en présentiel — pour l'instant à Bordeaux, puis expansion progressive dans les autres villes de France selon la demande." },
@@ -100,4 +100,4 @@ export const successImages = [
   "https://images.pexels.com/photos/3184406/pexels-photo-3184406.jpeg?w=800&auto=format&fit=crop",
 ];
 
-export const partners = ["Skool", "Bordeaux", "IRL Events", "Community", "Sisterhood", "Growth", "Real Talk", "No BS"];
+export const partners = ["Discord", "Bordeaux", "IRL Events", "Community", "Sisterhood", "Growth", "Real Talk", "No BS"];

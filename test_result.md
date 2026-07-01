@@ -225,6 +225,18 @@ backend:
         agent: "testing"
         comment: "DELETE /api/admin/leads/{id} for non-existing ID correctly returns 404 with 'Lead introuvable' message"
 
+  - task: "MailerLite integration - lead sync"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "MailerLite sync working successfully. POST /api/leads creates lead and syncs to MailerLite API with HTTP 201 Created. Field mailerlite_synced correctly set to True in MongoDB after successful sync. Backend logs confirm: 'HTTP Request: POST https://connect.mailerlite.com/api/subscribers HTTP/1.1 201 Created'. Tested with multiple unique emails, all synced successfully."
+
 frontend:
   - task: "Frontend testing"
     implemented: true
@@ -241,12 +253,12 @@ frontend:
 metadata:
   created_by: "testing_agent"
   version: "1.0"
-  test_sequence: 1
+  test_sequence: 2
   run_ui: false
 
 test_plan:
   current_focus:
-    - "All backend endpoints tested and verified"
+    - "MailerLite integration tested and verified"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -254,3 +266,5 @@ test_plan:
 agent_communication:
   - agent: "testing"
     message: "Completed comprehensive backend API testing. All 10 test cases passed successfully. Backend is fully functional with proper authentication, validation, idempotency, and error handling. No critical or major issues found. Backend logs show clean execution with no errors."
+  - agent: "testing"
+    message: "MailerLite integration testing completed successfully. Created multiple test leads with unique emails (test.mailerlite.{timestamp}@gmail.com). All leads synced successfully to MailerLite API with HTTP 201 Created responses. Verified mailerlite_synced field is correctly set to True in MongoDB. Backend logs confirm successful API calls to https://connect.mailerlite.com/api/subscribers. All regression tests passed (10/10). No errors or warnings in backend logs. Integration is working as expected."
