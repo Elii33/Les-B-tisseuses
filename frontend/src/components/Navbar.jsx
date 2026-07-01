@@ -26,8 +26,8 @@ export default function Navbar() {
         <a href="#top" className="flex items-center gap-2 group">
           <div className="relative">
             <div className="absolute inset-0 rounded-lg bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-orange-400 blur-md opacity-70 group-hover:opacity-100 transition" />
-            <div className="relative w-9 h-9 rounded-lg bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-orange-400 flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" strokeWidth={2.5} />
+            <div className="relative w-11 h-11 rounded-xl bg-[#fdf5ec] flex items-center justify-center overflow-hidden ring-1 ring-white/10">
+              <img src={brand.logoUrl} alt="Les Bâtisseuses" className="w-full h-full object-cover scale-[1.65]" style={{ objectPosition: '50% 30%' }} />
             </div>
           </div>
           <span className="text-white font-black tracking-tight text-lg">{brand.name}</span>

@@ -3,6 +3,9 @@
 export const brand = {
   name: "LES BÂTISSEUSES",
   tagline: "La communauté des entrepreneures qui refusent la solitude",
+  motto: "Entreprendre. S'épanouir. S'entraider.",
+  signature: "Construisons nos rêves, ensemble.",
+  logoUrl: "https://customer-assets.emergentagent.com/job_landing-offer-hub/artifacts/kdg48ewc_3F6FBCD5-C9C4-444A-9F1E-BDF3BD3F2A61.png",
   communityLink: "https://discord.gg/FrYHGPkzg",
   ctaLabel: "Rejoindre la communauté",
 };

@@ -28,7 +28,7 @@ export default function Hero() {
         >
           <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-fuchsia-500/30 bg-fuchsia-500/10 backdrop-blur-md">
             <Users className="w-4 h-4 text-orange-300" />
-            <span className="text-sm font-medium text-white/90">Communauté 100% gratuite au lancement</span>
+            <span className="text-sm font-medium text-white/90">Entreprendre · S'épanouir · S'entraider</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[0.95] mb-6 max-w-5xl">

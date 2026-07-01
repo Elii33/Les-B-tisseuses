@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
-import { Sparkles, Lock, Download, RefreshCw, Trash2, Users, Mail } from 'lucide-react';
+import { Lock, Download, RefreshCw, Trash2, Users, Mail } from 'lucide-react';
+import { brand } from '../mock';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -94,8 +95,8 @@ export default function Admin() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,#3b0764_0%,#0a0014_60%)]" />
         <form onSubmit={login} className="relative w-full max-w-md bg-gradient-to-br from-[#1a0330] to-[#0a0014] border border-white/10 rounded-3xl p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-orange-400 flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
+            <div className="w-12 h-12 rounded-xl bg-[#fdf5ec] flex items-center justify-center overflow-hidden ring-1 ring-white/10">
+              <img src={brand.logoUrl} alt="Les Bâtisseuses" className="w-full h-full object-cover scale-[1.65]" style={{ objectPosition: '50% 30%' }} />
             </div>
             <div>
               <div className="text-white font-black text-lg leading-none">LES BÂTISSEUSES</div>
@@ -131,8 +132,8 @@ export default function Admin() {
       <header className="border-b border-white/10 bg-[#0a0014]/80 backdrop-blur-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-orange-400 flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-[#fdf5ec] flex items-center justify-center overflow-hidden ring-1 ring-white/10">
+              <img src={brand.logoUrl} alt="Les Bâtisseuses" className="w-full h-full object-cover scale-[1.65]" style={{ objectPosition: '50% 30%' }} />
             </div>
             <div>
               <div className="font-black text-sm leading-none">LES BÂTISSEUSES</div>
