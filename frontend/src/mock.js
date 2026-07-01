@@ -3,7 +3,7 @@
 export const brand = {
   name: "LES BÂTISSEUSES",
   tagline: "La communauté des entrepreneures qui refusent la solitude",
-  communityLink: "https://discord.gg/", // ⚠️ À remplacer par le vrai lien d'invitation Discord (format https://discord.gg/xxxxx)
+  communityLink: "https://discord.gg/FrYHGPkzg",
   ctaLabel: "Rejoindre la communauté",
 };
 
