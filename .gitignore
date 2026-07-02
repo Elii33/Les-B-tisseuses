@@ -1,7 +1,16 @@
 .env
 backend/.env
 frontend/.env
+
 node_modules
+frontend/node_modules
+
 dist
 build
-frontend/node_modules/.cache/default-development/0.pack
+
+.DS_Store
+.emergent
+.ruff_cache
+
+*.pyc
+__pycache__/frontend/node_modules/.cache/default-development/0.pack
