@@ -163,6 +163,9 @@ async def admin_delete_lead(lead_id: str, authorization: Optional[str] = Header(
         raise HTTPException(status_code=404, detail="Lead introuvable")
     return {"ok": True}
 
+from fastapi import FastAPI, APIRouter
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(title="Les Bâtisseuses API")
 
 app.add_middleware(
@@ -176,7 +179,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-api_router = APIRouter(prefix="/api")
+api_router = APIRouter()
+
+@app.get("/")
+def root():
+    return {"status": "ok"}
+
+@app.get("/api/")
+def api_root():
+    return {"status": "api ok"}
+
 app.include_router(api_router)
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
