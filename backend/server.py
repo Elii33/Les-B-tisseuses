@@ -163,16 +163,21 @@ async def admin_delete_lead(lead_id: str, authorization: Optional[str] = Header(
         raise HTTPException(status_code=404, detail="Lead introuvable")
     return {"ok": True}
 
-
-app.include_router(api_router)
+app = FastAPI(title="Les Bâtisseuses API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://les-b-tisseuses.vercel.app",
+        "http://localhost:3000"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+api_router = APIRouter(prefix="/api")
+app.include_router(api_router)
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
