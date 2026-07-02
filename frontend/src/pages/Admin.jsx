@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -18,7 +18,7 @@ function toCsv(rows) {
 
 export default function Admin() {
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState(localStorage.getItem('admin_token') || '');
+  const [token, setToken] = useState(() => sessionStorage.getItem('admin_token') || '');
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -29,7 +29,7 @@ export default function Admin() {
     setLoading(true);
     try {
       const { data } = await axios.post(`${API}/admin/login`, { password });
-      localStorage.setItem('admin_token', data.token);
+      sessionStorage.setItem('admin_token', data.token);
       setToken(data.token);
     } catch (err) {
       setError(err?.response?.data?.detail || 'Mot de passe incorrect');
@@ -38,7 +38,8 @@ export default function Admin() {
     }
   };
 
-  const fetchLeads = async () => {
+  const fetchLeads = useCallback(async () => {
+    if (!token) return;
     setLoading(true);
     setError('');
     try {
@@ -46,7 +47,7 @@ export default function Admin() {
       setLeads(data);
     } catch (err) {
       if (err?.response?.status === 401) {
-        localStorage.removeItem('admin_token');
+        sessionStorage.removeItem('admin_token');
         setToken('');
       } else {
         setError('Erreur lors du chargement');
@@ -54,7 +55,7 @@ export default function Admin() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
   const remove = async (id) => {
     if (!window.confirm('Supprimer ce lead ?')) return;
@@ -79,15 +80,14 @@ export default function Admin() {
   };
 
   const logout = () => {
-    localStorage.removeItem('admin_token');
+    sessionStorage.removeItem('admin_token');
     setToken('');
     setLeads([]);
   };
 
   useEffect(() => {
     if (token) fetchLeads();
-    // eslint-disable-next-line
-  }, [token]);
+  }, [token, fetchLeads]);
 
   if (!token) {
     return (

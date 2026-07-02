@@ -253,7 +253,7 @@ frontend:
 metadata:
   created_by: "testing_agent"
   version: "1.0"
-  test_sequence: 2
+  test_sequence: 3
   run_ui: false
 
 test_plan:
@@ -268,3 +268,5 @@ agent_communication:
     message: "Completed comprehensive backend API testing. All 10 test cases passed successfully. Backend is fully functional with proper authentication, validation, idempotency, and error handling. No critical or major issues found. Backend logs show clean execution with no errors."
   - agent: "testing"
     message: "MailerLite integration testing completed successfully. Created multiple test leads with unique emails (test.mailerlite.{timestamp}@gmail.com). All leads synced successfully to MailerLite API with HTTP 201 Created responses. Verified mailerlite_synced field is correctly set to True in MongoDB. Backend logs confirm successful API calls to https://connect.mailerlite.com/api/subscribers. All regression tests passed (10/10). No errors or warnings in backend logs. Integration is working as expected."
+  - agent: "testing"
+    message: "Regression test completed after frontend changes (localStorage → sessionStorage, useCallback wrapper). All 7 requested backend endpoints verified and working correctly: 1) GET /api/ health check → 200, 2) POST /api/leads with unique email (regression.test.1782952565@example.com) → 200 with MailerLite sync confirmed (HTTP 201 Created in logs), 3) POST /api/admin/login wrong password → 401, 4) POST /api/admin/login correct password → 200 with token, 5) GET /api/admin/leads with token → 200 list, 6) GET /api/admin/leads without token → 401, 7) DELETE /api/admin/leads/{id} → 200 {ok:true}. Backend logs show no errors. All tests passed (10/10). Backend remains fully functional after frontend changes."

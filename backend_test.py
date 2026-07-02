@@ -81,11 +81,14 @@ print()
 
 # Test 2: Create a lead
 print("Test 2: POST /api/leads - Create a lead")
+import time
+unique_email = f"regression.test.{int(time.time())}@example.com"
 lead_data = {
     "first_name": "Sophie",
-    "email": "sophie.martin@example.com",
+    "email": unique_email,
     "city": "Bordeaux"
 }
+print(f"   Using unique email: {unique_email}")
 response, success = test_endpoint(
     "Create lead",
     "POST",
