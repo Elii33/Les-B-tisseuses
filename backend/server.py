@@ -68,7 +68,7 @@ async def root():
 @api_router.post("/leads", response_model=Lead)
 async def create_lead(payload: LeadCreate):
 
-    print("MAILERLITE KEY:", repr(MAILERLITE_API_KEY))
+    logger.info(f"MailerLite key loaded: {bool(MAILERLITE_API_KEY)}")
 
     email = payload.email.lower().strip()
     first_name = payload.first_name.strip()
