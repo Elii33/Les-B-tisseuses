@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Depends, Header
 from dotenv import load_dotenv
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
@@ -26,7 +26,16 @@ MAILERLITE_API_KEY = os.environ.get('MAILERLITE_API_KEY', '')
 
 app = FastAPI(title="Les Bâtisseuses API")
 api_router = APIRouter(prefix="/api")
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://les-b-tisseuses.vercel.app",
+        "http://localhost:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # In-memory token store (simple, resets on backend restart — acceptable for MVP)
 active_tokens = {}  # token -> expires_at
 TOKEN_TTL_SECONDS = 60 * 60 * 8  # 8 hours
@@ -162,32 +171,6 @@ async def admin_delete_lead(lead_id: str, authorization: Optional[str] = Header(
     if res.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Lead introuvable")
     return {"ok": True}
-
-from fastapi import FastAPI, APIRouter
-from fastapi.middleware.cors import CORSMiddleware
-
-app = FastAPI(title="Les Bâtisseuses API")
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://les-b-tisseuses.vercel.app",
-        "http://localhost:3000"
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-api_router = APIRouter()
-
-@app.get("/")
-def root():
-    return {"status": "ok"}
-
-@app.get("/api/")
-def api_root():
-    return {"status": "api ok"}
 
 app.include_router(api_router)
 
