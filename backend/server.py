@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Depends, Header
+from fastapi import FastAPI, APIRouter, HTTPException, Header
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -13,6 +13,7 @@ from typing import List, Optional
 import uuid
 from datetime import datetime
 
+# ---------- ENV ----------
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
@@ -24,8 +25,10 @@ ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'change_me')
 ADMIN_SECRET = os.environ.get('ADMIN_SECRET', 'change_me_secret')
 MAILERLITE_API_KEY = os.environ.get('MAILERLITE_API_KEY', '')
 
+# ---------- APP ----------
 app = FastAPI(title="Les Bâtisseuses API")
 api_router = APIRouter(prefix="/api")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -36,28 +39,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# In-memory token store (simple, resets on backend restart — acceptable for MVP)
-active_tokens = {}  # token -> expires_at
-TOKEN_TTL_SECONDS = 60 * 60 * 8  # 8 hours
 
+# ---------- LOG ----------
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-def _issue_token() -> str:
-    token = secrets.token_urlsafe(32)
-    active_tokens[token] = time.time() + TOKEN_TTL_SECONDS
-    return token
-
-
-def _verify_token(auth: Optional[str]) -> None:
-    if not auth or not auth.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Non autorisé")
-    token = auth.split(" ", 1)[1]
-    exp = active_tokens.get(token)
-    if not exp or exp < time.time():
-        active_tokens.pop(token, None)
-        raise HTTPException(status_code=401, detail="Session expirée")
-
-
-# ---------- Models ----------
+# ---------- MODELS ----------
 class LeadCreate(BaseModel):
     first_name: str = Field(min_length=1, max_length=80)
     email: EmailStr
@@ -72,15 +59,7 @@ class Lead(BaseModel):
     created_at: datetime
 
 
-class AdminLogin(BaseModel):
-    password: str
-
-
-class TokenResp(BaseModel):
-    token: str
-
-
-# ---------- Routes ----------
+# ---------- ROUTES ----------
 @api_router.get("/")
 async def root():
     return {"message": "Les Bâtisseuses API is running"}
@@ -88,7 +67,9 @@ async def root():
 
 @api_router.post("/leads", response_model=Lead)
 async def create_lead(payload: LeadCreate):
-    print("MAILERLITE_API_KEY VALUE:", repr(MAILERLITE_API_KEY))
+
+    print("MAILERLITE KEY:", repr(MAILERLITE_API_KEY))
+
     email = payload.email.lower().strip()
     first_name = payload.first_name.strip()
     city = (payload.city or "").strip() or None
@@ -102,6 +83,7 @@ async def create_lead(payload: LeadCreate):
             city=existing.get("city"),
             created_at=existing["created_at"],
         )
+
     doc = {
         "id": str(uuid.uuid4()),
         "first_name": first_name,
@@ -110,16 +92,19 @@ async def create_lead(payload: LeadCreate):
         "created_at": datetime.utcnow(),
         "mailerlite_synced": False,
     }
+
     await db.leads.insert_one(doc)
 
-    # Sync to MailerLite (non-blocking on error)
-    print("MAILERLITE KEY EXISTS:", bool(MAILERLITE_API_KEY))
-    if MAILERLITE_API_KEY:
+    # ---------- MAILERLITE SYNC ----------
+    if not MAILERLITE_API_KEY:
+        logger.warning("MailerLite API key missing")
+    else:
         try:
             async with httpx.AsyncClient(timeout=8.0) as http:
                 fields = {"name": first_name}
                 if city:
                     fields["city"] = city
+
                 resp = await http.post(
                     "https://connect.mailerlite.com/api/subscribers",
                     headers={
@@ -133,22 +118,56 @@ async def create_lead(payload: LeadCreate):
                         "status": "active",
                     },
                 )
-                print("MAILERLITE STATUS:", resp.status_code)
-                print("MAILERLITE RESPONSE:", resp.text)
+
+                logger.info(f"MailerLite status: {resp.status_code}")
+                logger.info(f"MailerLite response: {resp.text}")
+                
+                logger.info(f"EMAIL SENT TO MAILERLITE: {email}")
                 if resp.status_code in (200, 201):
-                    await db.leads.update_one({"id": doc["id"]}, {"$set": {"mailerlite_synced": True}})
+                    await db.leads.update_one(
+                        {"id": doc["id"]},
+                        {"$set": {"mailerlite_synced": True}}
+                    )
                 else:
-                    logger.warning(f"MailerLite sync failed ({resp.status_code}): {resp.text[:200]}")
+                    logger.warning(f"MailerLite error: {resp.text[:200]}")
+
         except Exception as e:
-            logger.warning(f"MailerLite sync exception: {e}")
+            logger.warning(f"MailerLite exception: {e}")
 
     return Lead(**{k: v for k, v in doc.items() if k in ("id", "first_name", "email", "city", "created_at")})
+
+
+# ---------- ADMIN ----------
+active_tokens = {}
+TOKEN_TTL_SECONDS = 60 * 60 * 8
+
+
+def _issue_token():
+    token = secrets.token_urlsafe(32)
+    active_tokens[token] = time.time() + TOKEN_TTL_SECONDS
+    return token
+
+
+def _verify_token(auth: Optional[str]):
+    if not auth or not auth.startswith("Bearer "):
+        raise HTTPException(401, "Unauthorized")
+    token = auth.split(" ")[1]
+    if token not in active_tokens or active_tokens[token] < time.time():
+        raise HTTPException(401, "Expired")
+
+
+class AdminLogin(BaseModel):
+    password: str
+
+
+class TokenResp(BaseModel):
+    token: str
 
 
 @api_router.post("/admin/login", response_model=TokenResp)
 async def admin_login(payload: AdminLogin):
     if payload.password != ADMIN_PASSWORD:
-        raise HTTPException(status_code=401, detail="Mot de passe incorrect")
+        raise HTTPException(401, "Bad password")
     return TokenResp(token=_issue_token())
 
 
@@ -156,32 +175,22 @@ async def admin_login(payload: AdminLogin):
 async def admin_leads(authorization: Optional[str] = Header(default=None)):
     _verify_token(authorization)
     docs = await db.leads.find().sort("created_at", -1).to_list(5000)
-    return [
-        Lead(
-            id=d["id"],
-            first_name=d["first_name"],
-            email=d["email"],
-            city=d.get("city"),
-            created_at=d["created_at"],
-        )
-        for d in docs
-    ]
+    return [Lead(**d) for d in docs]
 
 
 @api_router.delete("/admin/leads/{lead_id}")
-async def admin_delete_lead(lead_id: str, authorization: Optional[str] = Header(default=None)):
+async def delete_lead(lead_id: str, authorization: Optional[str] = Header(default=None)):
     _verify_token(authorization)
     res = await db.leads.delete_one({"id": lead_id})
     if res.deleted_count == 0:
-        raise HTTPException(status_code=404, detail="Lead introuvable")
+        raise HTTPException(404, "Not found")
     return {"ok": True}
 
-app.include_router(api_router)
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+# ---------- START ----------
+app.include_router(api_router)
 
 
 @app.on_event("shutdown")
-async def shutdown_db_client():
+async def shutdown():
     client.close()
