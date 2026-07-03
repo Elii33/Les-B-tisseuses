@@ -131,6 +131,8 @@ async def create_lead(payload: LeadCreate):
                         "status": "active",
                     },
                 )
+                print("MAILERLITE STATUS:", resp.status_code)
+                print("MAILERLITE RESPONSE:", resp.text)
                 if resp.status_code in (200, 201):
                     await db.leads.update_one({"id": doc["id"]}, {"$set": {"mailerlite_synced": True}})
                 else:
