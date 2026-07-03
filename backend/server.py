@@ -88,6 +88,7 @@ async def root():
 
 @api_router.post("/leads", response_model=Lead)
 async def create_lead(payload: LeadCreate):
+    print("MAILERLITE_API_KEY VALUE:", repr(MAILERLITE_API_KEY))
     email = payload.email.lower().strip()
     first_name = payload.first_name.strip()
     city = (payload.city or "").strip() or None
