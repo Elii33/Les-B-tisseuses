@@ -112,6 +112,7 @@ async def create_lead(payload: LeadCreate):
     await db.leads.insert_one(doc)
 
     # Sync to MailerLite (non-blocking on error)
+    print("MAILERLITE KEY EXISTS:", bool(MAILERLITE_API_KEY))
     if MAILERLITE_API_KEY:
         try:
             async with httpx.AsyncClient(timeout=8.0) as http:
