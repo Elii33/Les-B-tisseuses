@@ -115,7 +115,9 @@ async def create_lead(payload: LeadCreate):
                     json={
                         "email": email,
                         "fields": fields,
-                        "status": "active",
+                        "status": "subscribed",
+                        "resubscribe": True,
+                        "groups": ["191825749102036199"]
                     },
                 )
 
