@@ -129,6 +129,7 @@ async def create_lead(payload: LeadCreate):
                         "email": email,
                         "fields": fields,
                         "status": "active",
+                        "groups": ["191825749102036199"]
                     },
                 )
                 if resp.status_code in (200, 201):
